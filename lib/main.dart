@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
 import 'services/local_storage_service.dart';
-import 'ui/auth/login_page.dart';
+import 'ui/auth/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class BorotaraApp extends StatelessWidget {
       title: 'Borotara',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light, // pastikan app_theme.dart ada ini
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }

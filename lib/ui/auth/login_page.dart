@@ -108,8 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                       value: _selectedRole,
                       items: const [
                         DropdownMenuItem(value: 'admin', child: Text('Admin')),
-                        DropdownMenuItem(value: 'driver', child: Text('Driver')),
-                        DropdownMenuItem(value: 'teknisi', child: Text('Teknisi')),
+                        DropdownMenuItem(
+                            value: 'driver', child: Text('Driver')),
+                        DropdownMenuItem(
+                            value: 'teknisi', child: Text('Teknisi')),
                       ],
                       onChanged: (v) {
                         if (v == null) return;
