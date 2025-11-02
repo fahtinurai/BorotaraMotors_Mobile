@@ -51,10 +51,10 @@ class AdminProfilePage extends StatelessWidget {
               ),
             ),
             const Divider(height: 40),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Peran'),
-              subtitle: const Text('Administrator'),
+            const ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Peran'),
+              subtitle: Text('Administrator'),
             ),
             const Spacer(),
             ElevatedButton.icon(

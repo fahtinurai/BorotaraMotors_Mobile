@@ -41,7 +41,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
             Column(
               children: [
                 DropdownButtonFormField<String>(
-                  value: selectedDriver,
+                  initialValue: selectedDriver,
                   items: drivers
                       .map(
                         (u) => DropdownMenuItem<String>(
@@ -58,7 +58,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: selectedPlate,
+                  initialValue: selectedPlate,
                   items: vehicles
                       .map(
                         (v) => DropdownMenuItem<String>(
@@ -93,7 +93,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
                 Expanded(
                   flex: 2,
                   child: DropdownButtonFormField<String>(
-                    value: selectedDriver,
+                    initialValue: selectedDriver,
                     items: drivers
                         .map(
                           (u) => DropdownMenuItem<String>(
@@ -115,7 +115,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
                 Expanded(
                   flex: 2,
                   child: DropdownButtonFormField<String>(
-                    value: selectedPlate,
+                    initialValue: selectedPlate,
                     items: vehicles
                         .map(
                           (v) => DropdownMenuItem<String>(

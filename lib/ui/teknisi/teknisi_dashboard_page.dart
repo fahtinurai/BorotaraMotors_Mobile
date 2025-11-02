@@ -172,7 +172,7 @@ class _TeknisiDashboardPageState extends State<TeknisiDashboardPage>
           const Text('Status Perbaikan'),
           const SizedBox(height: 4),
           DropdownButtonFormField<String>(
-            value: _allowedStatuses.contains(_status) ? _status : 'proses',
+            initialValue: _allowedStatuses.contains(_status) ? _status : 'proses',
             items: const [
               DropdownMenuItem(value: 'menunggu', child: Text('Menunggu')),
               DropdownMenuItem(value: 'proses', child: Text('Proses')),

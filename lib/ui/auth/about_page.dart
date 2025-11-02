@@ -23,9 +23,9 @@ class AboutPage extends StatelessWidget {
             // Bagian Deskripsi Perusahaan
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Tentang Kami",
                     style: TextStyle(
@@ -104,11 +104,11 @@ class AboutPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: const Color(0xFF1C2434),
                                 borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Colors.black12,
                                     blurRadius: 8,
-                                    offset: const Offset(0, 4),
+                                    offset: Offset(0, 4),
                                   ),
                                 ],
                               ),
@@ -147,11 +147,11 @@ class AboutPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: const Color(0xFF1C2434),
                                 borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     color: Colors.black12,
                                     blurRadius: 8,
-                                    offset: const Offset(0, 4),
+                                    offset: Offset(0, 4),
                                   ),
                                 ],
                               ),

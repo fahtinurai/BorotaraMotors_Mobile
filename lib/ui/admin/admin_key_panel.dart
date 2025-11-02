@@ -52,7 +52,7 @@ class _AdminKeyPanelState extends State<AdminKeyPanel> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: selectedRole,
+                  initialValue: selectedRole,
                   items: const [
                     DropdownMenuItem(value: 'admin', child: Text('Admin')),
                     DropdownMenuItem(value: 'driver', child: Text('Driver')),
@@ -131,7 +131,7 @@ class _AdminKeyPanelState extends State<AdminKeyPanel> {
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField<String>(
-                    value: selectedRole,
+                    initialValue: selectedRole,
                     items: const [
                       DropdownMenuItem(value: 'admin', child: Text('Admin')),
                       DropdownMenuItem(value: 'driver', child: Text('Driver')),
@@ -244,7 +244,7 @@ class _AdminKeyPanelState extends State<AdminKeyPanel> {
                                 x['role'] == u['role']);
                             // simpan ulang
                             // (boleh kita bikin method baru di service, tapi ini cukup)
-                            await svc.addOrUpdateUser; // <- bisa dibuat ulang kalau mau
+                            svc.addOrUpdateUser; // <- bisa dibuat ulang kalau mau
                           },
                         ),
                       ),
