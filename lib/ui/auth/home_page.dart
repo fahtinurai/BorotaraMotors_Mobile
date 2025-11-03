@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 'Tentang Kami',
                 Icons.info,
                 () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const AboutPage()))),
+                    MaterialPageRoute(builder: (_) => AboutPage()))),
             const Divider(),
             _drawerItem(
                 'Login',

@@ -52,7 +52,7 @@ class ContactPage extends StatelessWidget {
             _drawerItem(context, 'Home', Icons.home, const HomePage()),
             _drawerItem(context, 'Layanan', Icons.build_circle, const ServicePage()),
             _drawerItem(context, 'Kontak', Icons.phone, null),
-            _drawerItem(context, 'Tentang Kami', Icons.info, const AboutPage()),
+            _drawerItem(context, 'Tentang Kami', Icons.info, AboutPage()),
             const Divider(),
             _drawerItem(context, 'Login', Icons.login, const LoginPage()),
           ],

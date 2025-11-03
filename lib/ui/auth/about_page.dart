@@ -1,22 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'contact_page.dart';
+import 'home_page.dart';
+import 'login_page.dart';
+import 'service_page.dart';
+
 
 class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+  AboutPage({super.key});
+
+  final String poppins = GoogleFonts.poppins().fontFamily ?? '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
+
+
       appBar: AppBar(
         backgroundColor: const Color(0xFF1C2434),
-        title: const Text(
+        title: Text(
           "Borotara Motors",
           style: TextStyle(
+            fontFamily: poppins,
+            color: Colors.orange[400],
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         ),
+        centerTitle: true,
       ),
+      // ----------------------------------------------------
+
+
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Color(0xFF1C2434)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.directions_car,
+                      color: Colors.orange, size: 48),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Borotara Motors',
+                    style: TextStyle(
+                        fontFamily: poppins,
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            // Navigasi disesuaikan untuk halaman 'About'
+            _drawerItem(
+                'Home',
+                Icons.home,
+                () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const HomePage()))),
+            _drawerItem(
+                'Layanan',
+                Icons.build_circle,
+                () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const ServicePage()))),
+            _drawerItem(
+                'Kontak',
+                Icons.phone,
+                () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const ContactPage()))),
+            _drawerItem(
+              'Tentang Kami',
+              Icons.info,
+              // Karena ini Halaman 'Tentang Kami', kita tutup saja drawer-nya
+              () => Navigator.pop(context),
+            ),
+            const Divider(),
+            _drawerItem(
+                'Login',
+                Icons.login,
+                () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()))),
+          ],
+        ),
+      ),
+      // ---------------------------------------------------------
+
+      // Body-nya tetap sama (menggunakan perbaikan dari error sebelumnya)
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -88,99 +161,25 @@ class AboutPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
 
-                  // Kotak Visi dan Misi
+                  // Kotak Visi dan Misi (YANG DIPERBAIKI)
                   LayoutBuilder(
                     builder: (context, constraints) {
                       bool isWide = constraints.maxWidth > 700;
                       return Flex(
                         direction: isWide ? Axis.horizontal : Axis.vertical,
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: isWide
+                            ? CrossAxisAlignment.start
+                            : CrossAxisAlignment.stretch,
                         children: [
-                          // Visi
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.all(12),
-                              padding: const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1C2434),
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 8,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Visi",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange,
-                                    ),
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Menjadi bengkel armada travel terdepan di Bandung "
-                                    "yang mengedepankan kualitas, ketepatan, dan kemudahan layanan "
-                                    "berbasis digital untuk mendukung kelancaran operasional transportasi darat.",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      height: 1.6,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          // Misi
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.all(12),
-                              padding: const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1C2434),
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 8,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Misi",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange,
-                                    ),
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "• Memberikan layanan perawatan dan perbaikan kendaraan travel yang cepat, profesional, dan terpercaya.\n\n"
-                                    "• Mengembangkan sistem servis berbasis aplikasi untuk efisiensi operasional dan transparansi layanan.\n\n"
-                                    "• Menjadi mitra strategis bagi pelaku usaha travel dalam menjaga performa armada dan kepuasan penumpang.",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      height: 1.6,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          if (isWide)
+                            Expanded(child: _buildVisiCard())
+                          else
+                            _buildVisiCard(),
+                          if (isWide)
+                            Expanded(child: _buildMisiCard())
+                          else
+                            _buildMisiCard(),
                         ],
                       );
                     },
@@ -190,6 +189,103 @@ class AboutPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // --- DITAMBAHKAN: Helper method untuk Drawer Item ---
+  Widget _drawerItem(String title, IconData icon, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.orange[400]),
+      title: Text(title,
+          style: TextStyle(fontFamily: poppins, fontWeight: FontWeight.w500)),
+      onTap: onTap,
+    );
+  }
+  // ---------------------------------------------------
+
+  // --- Widget Method untuk Visi ---
+  Widget _buildVisiCard() {
+    return Container(
+      margin: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1C2434),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Visi",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.orange,
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "Menjadi bengkel armada travel terdepan di Bandung "
+            "yang mengedepankan kualitas, ketepatan, dan kemudahan layanan "
+            "berbasis digital untuk mendukung kelancaran operasional transportasi darat.",
+            style: TextStyle(
+              fontSize: 15,
+              height: 1.6,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // --- Widget Method untuk Misi ---
+  Widget _buildMisiCard() {
+    return Container(
+      margin: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1C2434),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Misi",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.orange,
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "• Memberikan layanan perawatan dan perbaikan kendaraan travel yang cepat, profesional, dan terpercaya.\n\n"
+            "• Mengembangkan sistem servis berbasis aplikasi untuk efisiensi operasional dan transparansi layanan.\n\n"
+            "• Menjadi mitra strategis bagi pelaku usaha travel dalam menjaga performa armada dan kepuasan penumpang.",
+            style: TextStyle(
+              fontSize: 15,
+              height: 1.6,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

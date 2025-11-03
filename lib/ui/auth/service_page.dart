@@ -95,7 +95,7 @@ class _ServicePageState extends State<ServicePage> {
                 () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => const AboutPage()))), // Ganti halaman
+                        builder: (_) => AboutPage()))), // Ganti halaman
             const Divider(),
             _drawerItem(
                 'Login',
