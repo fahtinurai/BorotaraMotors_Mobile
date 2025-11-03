@@ -24,8 +24,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
     // ambil semua kendaraan
     final vehicles = c.vehicles;
 
-    final isSmall = MediaQuery.of(context).size.width < 520;
-
+    final isSmall = MediaQuery.of(context).size.width < 850;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: ListView(
@@ -91,7 +90,7 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
               children: [
                 // pilih driver
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: DropdownButtonFormField<String>(
                     initialValue: selectedDriver,
                     items: drivers
@@ -111,9 +110,8 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
                 ),
                 const SizedBox(width: 12),
 
-                // pilih kendaraan
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: DropdownButtonFormField<String>(
                     initialValue: selectedPlate,
                     items: vehicles
@@ -132,14 +130,20 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
                   ),
                 ),
                 const SizedBox(width: 12),
-
-                // tombol Assign
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.add),
-                  label: const Text('Assign'),
-                  onPressed: () async {
-                    await _onAssign(context, c);
-                  },
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.add),
+                    label: const Text('Assign'),
+                    onPressed: () async {
+                      await _onAssign(context, c);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 16),
+                      textStyle: const TextStyle(fontSize: 14),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -155,22 +159,26 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
           const SizedBox(height: 8),
 
           Card(
-            // kalau di app_colors.dart kamu ada bgCard, ganti baris ini jadi AppColors.bgCard
             color: AppColors.background,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text('No')),
-                  DataColumn(label: Text('Driver')),
-                  DataColumn(label: Text('Kendaraan')),
-                  DataColumn(label: Text('Plat')),
-                  DataColumn(label: Text('Aksi')),
-                ],
-                rows: _buildAssignRows(c),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width,
+                ),
+                child: DataTable(
+                  columns: const [
+                    DataColumn(label: Text('No')),
+                    DataColumn(label: Text('Driver')),
+                    DataColumn(label: Text('Kendaraan')),
+                    DataColumn(label: Text('Plat')),
+                    DataColumn(label: Text('Aksi')),
+                  ],
+                  rows: _buildAssignRows(c),
+                ),
               ),
             ),
           ),
@@ -189,7 +197,6 @@ class _AdminAssignPanelState extends State<AdminAssignPanel> {
       return;
     }
 
-    // pakai controller terbaru → bisa balikin error
     final err = await c.assignVehicle(
       driverUsername: selectedDriver!,
       plate: selectedPlate!,

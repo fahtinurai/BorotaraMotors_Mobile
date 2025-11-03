@@ -30,8 +30,6 @@ class AboutPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      // ----------------------------------------------------
-
 
       drawer: Drawer(
         child: ListView(
@@ -87,9 +85,7 @@ class AboutPage extends StatelessWidget {
           ],
         ),
       ),
-      // ---------------------------------------------------------
 
-      // Body-nya tetap sama (menggunakan perbaikan dari error sebelumnya)
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -193,7 +189,6 @@ class AboutPage extends StatelessWidget {
     );
   }
 
-  // --- DITAMBAHKAN: Helper method untuk Drawer Item ---
   Widget _drawerItem(String title, IconData icon, VoidCallback onTap) {
     return ListTile(
       leading: Icon(icon, color: Colors.orange[400]),
@@ -202,7 +197,7 @@ class AboutPage extends StatelessWidget {
       onTap: onTap,
     );
   }
-  // ---------------------------------------------------
+
 
   // --- Widget Method untuk Visi ---
   Widget _buildVisiCard() {

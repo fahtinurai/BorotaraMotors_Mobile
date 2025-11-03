@@ -25,7 +25,7 @@ class _AdminVehiclePanelState extends State<AdminVehiclePanel> {
   @override
   Widget build(BuildContext context) {
     final c = widget.controller;
-    final isSmall = MediaQuery.of(context).size.width < 520;
+    final isSmall = MediaQuery.of(context).size.width < 850;
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -73,7 +73,7 @@ class _AdminVehiclePanelState extends State<AdminVehiclePanel> {
             Row(
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 3, 
                   child: TextField(
                     controller: brandCtrl,
                     decoration: const InputDecoration(
@@ -84,7 +84,7 @@ class _AdminVehiclePanelState extends State<AdminVehiclePanel> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: TextField(
                     controller: plateCtrl,
                     decoration: const InputDecoration(
@@ -94,12 +94,20 @@ class _AdminVehiclePanelState extends State<AdminVehiclePanel> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.add),
-                  label: const Text('Tambah'),
-                  onPressed: () async {
-                    await _onAdd(context, c);
-                  },
+                Expanded(
+                  flex: 2, 
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.add),
+                    label: const Text('Tambah'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 16),
+                      textStyle: const TextStyle(fontSize: 14),
+                    ),
+                    onPressed: () async {
+                      await _onAdd(context, c);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -115,45 +123,50 @@ class _AdminVehiclePanelState extends State<AdminVehiclePanel> {
           const SizedBox(height: 8),
 
           Card(
-            color: AppColors.background, // sebelumnya AppColors.bgCard
+            color: AppColors.background,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text('No')),
-                  DataColumn(label: Text('Merk')),
-                  DataColumn(label: Text('Plat')),
-                  DataColumn(label: Text('Aksi')),
-                ],
-                rows: List.generate(c.vehicles.length, (i) {
-                  final v = c.vehicles[i];
-                  return DataRow(
-                    cells: [
-                      DataCell(Text('${i + 1}')),
-                      DataCell(Text(v['brand'] ?? '-')),
-                      DataCell(Text(v['plate'] ?? '-')),
-                      DataCell(
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () async {
-                            await c.deleteVehicle(v['plate']);
-                            setState(() {});
-                            if (mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Kendaraan dihapus'),
-                                ),
-                              );
-                            }
-                          },
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width,
+                ),
+                child: DataTable(
+                  columns: const [
+                    DataColumn(label: Text('No')),
+                    DataColumn(label: Text('Merk')),
+                    DataColumn(label: Text('Plat')),
+                    DataColumn(label: Text('Aksi')),
+                  ],
+                  rows: List.generate(c.vehicles.length, (i) {
+                    final v = c.vehicles[i];
+                    return DataRow(
+                      cells: [
+                        DataCell(Text('${i + 1}')),
+                        DataCell(Text(v['brand'] ?? '-')),
+                        DataCell(Text(v['plate'] ?? '-')),
+                        DataCell(
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () async {
+                              await c.deleteVehicle(v['plate']);
+                              setState(() {});
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Kendaraan dihapus'),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  }),
+                ),
               ),
             ),
           ),

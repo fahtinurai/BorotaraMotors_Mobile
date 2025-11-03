@@ -19,12 +19,11 @@ class AdminNavBar extends StatelessWidget {
         height: 56,
         child: Row(
           children: [
-            _item(0, Icons.dashboard, 'Home'),
-            _item(1, Icons.vpn_key, 'Key'),
-            _item(2, Icons.directions_car, 'Kendaraan'),
-            _item(3, Icons.assignment_ind, 'Assign'),
-            _item(4, Icons.report, 'Follow-up'),
-            const Spacer(),
+            Expanded(child: _item(0, Icons.dashboard, 'Home')),
+            Expanded(child: _item(1, Icons.vpn_key, 'Key')),
+            Expanded(child: _item(2, Icons.directions_car, 'Kendaraan')),
+            Expanded(child: _item(3, Icons.assignment_ind, 'Assign')),
+            Expanded(child: _item(4, Icons.report, 'Follow-up')),
             IconButton(
               icon: const Icon(Icons.person),
               onPressed: () => onSelect(99),
@@ -40,14 +39,16 @@ class AdminNavBar extends StatelessWidget {
     return InkWell(
       onTap: () => onSelect(index),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: active ? Colors.blue : Colors.grey),
-            const SizedBox(width: 4),
             Text(
               label,
+              overflow: TextOverflow.ellipsis, 
               style: TextStyle(
+                fontSize: 12, 
                 color: active ? Colors.blue : Colors.grey,
                 fontWeight: active ? FontWeight.w600 : FontWeight.w400,
               ),
